@@ -54,6 +54,7 @@
         self.enableDoneButton = YES;
         self.showDoneButtonOnLeft = YES;
         self.disableAutoplayForLivePhoto = YES;
+        self.maxScale = 4.0;
         self.parallaxView = [UIView new];
     }
     
@@ -71,6 +72,7 @@
         self.showDoneButtonOnLeft = YES;
         self.usedFor3DTouch = YES;
         self.disableAutoplayForLivePhoto = YES;
+        self.maxScale = 4.0;
         self.parallaxView = [UIView new];
     }
     
@@ -181,6 +183,7 @@
         imgVC.disableSharingLongPress = self.shouldDisableSharingLongPress;
         imgVC.disableHorizontalDrag = (self.images.count > 1);
         imgVC.disableAutoplayForLivePhoto = self.shouldDisableAutoplayForLivePhoto;
+        imgVC.maxScale = self.maxScale;
         [self.imageViewControllers addObject:imgVC];
     }
     
