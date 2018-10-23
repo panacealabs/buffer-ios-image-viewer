@@ -299,7 +299,7 @@
     CGFloat minScale = MIN(xScale, yScale);
     
     // Calculate Max
-    CGFloat maxScale = 4.0;
+    CGFloat maxScale = self.maxScale ? self.maxScale : 4.0;
     if ([UIScreen instancesRespondToSelector:@selector(scale)]) {
         maxScale = maxScale / [[UIScreen mainScreen] scale];
         
