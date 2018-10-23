@@ -332,7 +332,7 @@
         [self.scrollView setZoomScale:self.scrollView.minimumZoomScale animated:YES];
     } else {
         //Zoom to a point
-        CGPoint touchPoint = [tap locationInView:self.scrollView];
+        CGPoint touchPoint = [tap locationInView:self.imgView];
         [self.scrollView zoomToRect:CGRectMake(touchPoint.x, touchPoint.y, 1, 1) animated:YES];
     }
 }
