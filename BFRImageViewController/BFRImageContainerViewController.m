@@ -228,9 +228,7 @@
     
     // Dragging to dismiss
     UIPanGestureRecognizer *panImg = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handleDrag:)];
-    if (self.shouldDisableHorizontalDrag) {
-        panImg.delegate = self;
-    }
+    panImg.delegate = self;
     [resizableImageView addGestureRecognizer:panImg];
     
     if (self.assetType == BFRImageAssetTypeLivePhoto) {
@@ -267,10 +265,17 @@
 
 #pragma mark - Gesture Recognizer Delegate
 
-// If we have more than one image, this will cancel out dragging horizontally to make it easy to navigate between images
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
-    CGPoint velocity = [(UIPanGestureRecognizer *)gestureRecognizer velocityInView:self.scrollView];
-    return fabs(velocity.y) > fabs(velocity.x);
+    // Don't start gesture if zoomed in
+    if (self.scrollView.zoomScale > 1.0) {
+        return NO;
+    }
+    // If we have more than one image, this will cancel out dragging horizontally to make it easy to navigate between images
+    if (self.shouldDisableHorizontalDrag) {
+        CGPoint velocity = [(UIPanGestureRecognizer *)gestureRecognizer velocityInView:self.scrollView];
+        return fabs(velocity.y) > fabs(velocity.x);
+    }
+    return YES;
 }
 
 #pragma mark - Scrollview Delegate
