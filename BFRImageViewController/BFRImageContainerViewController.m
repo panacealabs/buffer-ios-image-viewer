@@ -170,7 +170,11 @@
     sv.showsVerticalScrollIndicator = NO;
     sv.decelerationRate = UIScrollViewDecelerationRateFast;
     sv.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    sv.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+
+    // Fix crash on iOS 10. Seems to work just fine without this.
+    if (@available(iOS 11, *)) {
+      sv.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+    }
     
     UITapGestureRecognizer *singleSVTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissImageViewer)];
     singleSVTap.numberOfTapsRequired = 1;
