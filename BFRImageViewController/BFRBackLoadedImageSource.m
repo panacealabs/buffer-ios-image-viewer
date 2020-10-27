@@ -17,6 +17,9 @@
 /*! The high fidelity image that will be loaded in the background and then shown once it's downloaded. */
 @property (strong, nonatomic, nonnull) NSURL *url;
 
+/*! The name of the NSNotificationCenter notification sent once this image has finished loading */
+@property (strong, nonatomic, nonnull) NSString *completionNotificationName;
+
 /*! The image that will show initially. */
 @property (strong, nonatomic, readwrite, nonnull) UIImage *image;
 
@@ -32,6 +35,7 @@
     if (self) {
         self.image = image;
         self.url = url;
+        self.completionNotificationName = [NSString stringWithFormat:@"%@/%@", NOTE_HI_RES_IMG_DOWNLOADED, self.url];
         
         [self loadHighFidelityImage];
     }
@@ -57,7 +61,7 @@
             }
             
             id returnResult = result.alternativeRepresentation ? result.alternativeRepresentation : result.image;
-            [[NSNotificationCenter defaultCenter] postNotificationName:NOTE_HI_RES_IMG_DOWNLOADED object:returnResult];
+            [[NSNotificationCenter defaultCenter] postNotificationName:self.completionNotificationName object:returnResult];
         });
     }];
 }
