@@ -111,8 +111,9 @@
         [self retrieveImageFromURL];
     } else if ([self.imgSrc isKindOfClass:[BFRBackLoadedImageSource class]]) {
         self.assetType = BFRImageAssetTypeRemoteImage;
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleHiResImageDownloaded:) name:NOTE_HI_RES_IMG_DOWNLOADED object:nil];
-        self.imgLoaded = ((BFRBackLoadedImageSource *)self.imgSrc).image;
+        BFRBackLoadedImageSource *backLoadedImageSource = (BFRBackLoadedImageSource *)self.imgSrc;
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleHiResImageDownloaded:) name:backLoadedImageSource.completionNotificationName object:nil];
+        self.imgLoaded = backLoadedImageSource.image;
         [self addImageToScrollView];
     } else {
         self.assetType = BFRImageAssetTypeUnknown;

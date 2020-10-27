@@ -17,6 +17,9 @@ typedef void(^onHiResDownloadComplete)(UIImage * _Nullable,  NSError * _Nullable
 /*! The image that is available for use right away. */
 @property (strong, nonatomic, readonly, nonnull) UIImage *image;
 
+/*! The name of the NSNotificationCenter notification sent once this image has finished loading */
+@property (strong, nonatomic, readonly, nonnull) NSString *completionNotificationName;
+
 /*! This is called on the main thread when the higher resolution image is finished loading. Assign to this if you wish to do any specific logic when the download completes. NOTE: Do not attempt to assign the image to any @c BFRImageContainerViewController, this is done for you. Use this block soley for any other business logic you might have to carry out. */
 @property (copy) onHiResDownloadComplete _Nullable onCompletion;
 
